@@ -28,11 +28,32 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   String _currentTime = '';
 
+  final List<String> messages = [
+    'Hoşgeldin TimeDecode\'a!',
+    'Zamana hükmet, dakikaları yakala.',
+    'Minimal tasarım, maksimum verim.',
+    'Her saniye değerli, zamanı yakala.',
+  ];
+
+  int _messageIndex = 0;
+  Timer? _messageTimer;
+
   @override
   void initState() {
     super.initState();
     _updateTime();
     Timer.periodic(const Duration(seconds: 1), (timer) => _updateTime());
+    _messageTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      setState(() {
+        _messageIndex = (_messageIndex + 1) % messages.length;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _messageTimer?.cancel();
+    super.dispose();
   }
 
   void _updateTime() {
@@ -119,9 +140,9 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ],
               ),
-              child: const Text(
-                'Buraya istediğin açıklamayı ya da metni ekleyebilirsin.',
-                style: TextStyle(
+              child: Text(
+                messages[_messageIndex],
+                style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 16,
                   height: 1.4,
