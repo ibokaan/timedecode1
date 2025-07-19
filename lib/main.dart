@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
 
-
 void main() {
   runApp(const TimeDecodeApp());
 }
@@ -54,42 +53,54 @@ class _LandingPageState extends State<LandingPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.black, Color(0xFF1A1A2E)],
+            colors: [Color(0xFF121212), Color(0xFF1E1E2F)], // Daha koyu, sofistike
           ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 80),
+            const SizedBox(height: 100),
             Text(
               'TimeDecode',
               style: GoogleFonts.spaceMono(
-                textStyle: const TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 2,
-                  shadows: [
+                textStyle: TextStyle(
+                  fontSize: 38,
+                  fontWeight: FontWeight.w600,
+                  foreground: Paint()
+                    ..shader = const LinearGradient(
+                      colors: [
+                        Color(0xFF8AB4F8), // Soft mavi
+                        Color(0xFF4A90E2), // Daha koyu mavi
+                      ],
+                    ).createShader(const Rect.fromLTWH(0, 0, 200, 70)),
+                  letterSpacing: 2.5,
+                  shadows: const [
                     Shadow(
-                      blurRadius: 4,
-                      color: Colors.white24,
-                      offset: Offset(2, 2),
-                    )
+                      color: Color(0xFF2A2A3D),
+                      blurRadius: 6,
+                      offset: Offset(0, 3),
+                    ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 60),
-            Center(
-              child: Text(
-                _currentTime,
-                style: GoogleFonts.robotoMono(
-                  textStyle: const TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.cyanAccent,
-                    letterSpacing: 4,
-                  ),
+            const SizedBox(height: 8),
+            Text(
+              _currentTime,
+              style: GoogleFonts.robotoMono(
+                textStyle: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF9CA3AF), // Pastel gri ton
+                  letterSpacing: 3,
+                  height: 1.2,
+                  shadows: [
+                    Shadow(
+                      color: Color(0xFF2A2A3D),
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
                 ),
               ),
             ),
