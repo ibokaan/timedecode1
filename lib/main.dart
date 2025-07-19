@@ -53,7 +53,7 @@ class _LandingPageState extends State<LandingPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF121212), Color(0xFF1E1E2F)], // Daha koyu, sofistike
+            colors: [Color(0xFF121212), Color(0xFF1E1E2F)],
           ),
         ),
         child: Column(
@@ -69,8 +69,8 @@ class _LandingPageState extends State<LandingPage> {
                   foreground: Paint()
                     ..shader = const LinearGradient(
                       colors: [
-                        Color(0xFF8AB4F8), // Soft mavi
-                        Color(0xFF4A90E2), // Daha koyu mavi
+                        Color(0xFF8AB4F8),
+                        Color(0xFF4A90E2),
                       ],
                     ).createShader(const Rect.fromLTWH(0, 0, 200, 70)),
                   letterSpacing: 2.5,
@@ -91,7 +91,7 @@ class _LandingPageState extends State<LandingPage> {
                 textStyle: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xFF9CA3AF), // Pastel gri ton
+                  color: Color(0xFF9CA3AF),
                   letterSpacing: 3,
                   height: 1.2,
                   shadows: [
@@ -102,6 +102,32 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF2A2A3D),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black45,
+                    offset: Offset(0, 4),
+                    blurRadius: 6,
+                  ),
+                ],
+              ),
+              child: const Text(
+                'Buraya istediğin açıklamayı ya da metni ekleyebilirsin.',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 16,
+                  height: 1.4,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
           ],
