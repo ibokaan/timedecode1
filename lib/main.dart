@@ -73,23 +73,15 @@ class _LandingPageState extends State<LandingPage> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Arka plan (yıldızlı gökyüzü)
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/stars_bg.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          // Sağ üstte yarım ay
+          // Sağ üstte ay (çeyrek ekran dışında)
           Positioned(
-            top: 0,
-            right: -30,
+            top: -50,
+            right: -50,
             child: Image.asset(
               'assets/images/moon.png',
-              width: 150,
-              height: 150,
-              opacity: const AlwaysStoppedAnimation(0.9),
+              width: 180,
+              height: 180,
+              opacity: const AlwaysStoppedAnimation(0.7),
             ),
           ),
 
