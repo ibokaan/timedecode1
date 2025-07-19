@@ -17,5 +17,10 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
 
+  flutter:
+  assets:
+    - assets/messages.json
+
+
 flutter:
   uses-material-design: true
