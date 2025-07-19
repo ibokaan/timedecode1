@@ -37,9 +37,7 @@ class _LandingPageState extends State<LandingPage> {
   void initState() {
     super.initState();
     _loadMessages().then((_) {
-      // Mesajlar yüklendi, hemen zamanı ve mesajı güncelle
       _updateTimeAndMessage();
-      // Her saniye güncelle
       Timer.periodic(const Duration(seconds: 1), (timer) {
         _updateTimeAndMessage();
       });
@@ -61,7 +59,7 @@ class _LandingPageState extends State<LandingPage> {
 
     final key = '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
     final messages = minuteMessages[key] ?? List.filled(12, 'Mesaj bulunamadı');
-    final index = now.second ~/ 5; // 0-11 arası
+    final index = now.second ~/ 5;
 
     setState(() {
       _currentTime = formattedTime;
@@ -73,77 +71,95 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 80),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.black, Color(0xFF1A1A2E)],
+      body: Stack(
+        children: [
+          // Arka plan (yıldızlı gökyüzü)
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/stars_bg.png',
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'TimeDecode',
-              style: GoogleFonts.spaceMono(
-                textStyle: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 2,
-                  shadows: [
-                    Shadow(
-                      blurRadius: 4,
-                      color: Colors.white24,
-                      offset: Offset(2, 2),
-                    )
-                  ],
-                ),
-              ),
+
+          // Sağ üstte yarım ay
+          Positioned(
+            top: 0,
+            right: -30,
+            child: Image.asset(
+              'assets/images/moon.png',
+              width: 150,
+              height: 150,
+              opacity: const AlwaysStoppedAnimation(0.9),
             ),
-            const SizedBox(height: 12),
-            Text(
-              _currentTime,
-              style: GoogleFonts.robotoMono(
-                textStyle: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.cyanAccent,
-                  letterSpacing: 3,
-                ),
-              ),
-            ),
-            const SizedBox(height: 48),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.deepPurple.withOpacity(0.8),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.deepPurpleAccent,
-                    blurRadius: 12,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Text(
-                _currentMessage,
-                style: GoogleFonts.spaceMono(
-                  textStyle: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                    letterSpacing: 1.2,
+          ),
+
+          // Uygulama içeriği
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 80),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'TimeDecode',
+                  style: GoogleFonts.spaceMono(
+                    textStyle: const TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: 2,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 4,
+                          color: Colors.white24,
+                          offset: Offset(2, 2),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-                textAlign: TextAlign.center,
-              ),
+                const SizedBox(height: 12),
+                Text(
+                  _currentTime,
+                  style: GoogleFonts.robotoMono(
+                    textStyle: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.cyanAccent,
+                      letterSpacing: 3,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 48),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurple.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.deepPurpleAccent,
+                        blurRadius: 12,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    _currentMessage,
+                    style: GoogleFonts.spaceMono(
+                      textStyle: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
