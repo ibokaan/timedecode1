@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:google_fonts/google_fonts.dart';
+
 
 void main() {
-  runApp(const MaterialApp(
-    home: TimeDecodeApp(),
-    debugShowCheckedModeBanner: false,
-  ));
+  runApp(const TimeDecodeApp());
 }
 
-class TimeDecodeApp extends StatefulWidget {
+class TimeDecodeApp extends StatelessWidget {
   const TimeDecodeApp({super.key});
 
   @override
-  State<TimeDecodeApp> createState() => _TimeDecodeAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const LandingPage(),
+    );
+  }
 }
 
-class _TimeDecodeAppState extends State<TimeDecodeApp> {
+class LandingPage extends StatefulWidget {
+  const LandingPage({super.key});
+
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
   String _currentTime = '';
 
   @override
@@ -27,39 +38,58 @@ class _TimeDecodeAppState extends State<TimeDecodeApp> {
 
   void _updateTime() {
     final now = DateTime.now();
-    final formattedTime = '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}';
+    final formatted = '${now.hour.toString().padLeft(2, '0')}:'
+        '${now.minute.toString().padLeft(2, '0')}:'
+        '${now.second.toString().padLeft(2, '0')}';
     setState(() {
-      _currentTime = formattedTime;
+      _currentTime = formatted;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 50),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.black, Color(0xFF1A1A2E)],
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Center(
-              child: Text(
-                'TimeDecode',
-                style: TextStyle(
-                  fontSize: 36,
+            const SizedBox(height: 80),
+            Text(
+              'TimeDecode',
+              style: GoogleFonts.spaceMono(
+                textStyle: const TextStyle(
+                  fontSize: 34,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
+                  letterSpacing: 2,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 4,
+                      color: Colors.white24,
+                      offset: Offset(2, 2),
+                    )
+                  ],
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 60),
             Center(
               child: Text(
                 _currentTime,
-                style: const TextStyle(
-                  fontSize: 28,
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w500,
+                style: GoogleFonts.robotoMono(
+                  textStyle: const TextStyle(
+                    fontSize: 42,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.cyanAccent,
+                    letterSpacing: 4,
+                  ),
                 ),
               ),
             ),
@@ -69,4 +99,3 @@ class _TimeDecodeAppState extends State<TimeDecodeApp> {
     );
   }
 }
-
