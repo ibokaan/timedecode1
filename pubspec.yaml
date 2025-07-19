@@ -21,4 +21,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/messages.json
-    - assets/images/moon.png
+    - assets/images/moon.jpg
